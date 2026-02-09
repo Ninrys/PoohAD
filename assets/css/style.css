@@ -155,3 +155,24 @@ width: 35vh;
   gap: 20px;             /* espacio uniforme entre cards */
 
 }
+
+/* ===== FOOTER PERSONALIZADO ===== */
+.custom-footer {
+  background-color: #0A0A0F; 
+  color: #FFFFFF !important;  /* Letra blanca si o si */
+  padding: 30px 0;
+  border-top: 1px solid #3D3A50; /* Línea sutil para separar */
+  margin-top: 40px;
+}
+
+.custom-footer p {
+  margin-bottom: 5px;
+  font-size: 14px;
+  opacity: 0.9; /* un poquitin menos opaco */
+}
+
+/* javi en moradito */
+.custom-footer p:last-child {
+  color: #8A2BE2;
+  font-weight: bold;
+}
