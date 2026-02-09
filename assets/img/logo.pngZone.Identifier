@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 [ZoneTransfer]
 ZoneId=3
 HostUrl=about:internet
+=======
+[ZoneTransfer]
+ZoneId=3
+HostUrl=about:internet
+>>>>>>> 0ff4ef9 (commit desde terminal)
