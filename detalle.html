@@ -20,72 +20,78 @@
     <div id="footer-placeholder"></div>
 
     <script src="assets/js/productos.js"></script>
+    <script src="assets/js/main.js"></script>
+
     <script>
         $(function() {
-            $("#header-placeholder").load("header.html");
-            $("#footer-placeholder").load("footer.html");
+            // Usamos la función de main.js para cargar header/footer y el badge inicial
+            cargarComponentes();
 
-            // 1. Obtener el ID de la URL (gracias gemini :c )
+            // 1. Obtener el ID de la URL
             const params = new URLSearchParams(window.location.search);
             const idBuscado = parseInt(params.get('id'));
 
-            // 2. Obtener la "base de datos" completa
+            // 2. Obtener la base de datos completa
             const db = JSON.parse(localStorage.getItem('tienda_db'));
             
             // 3. Buscar el producto en todas las categorías
             let productoEncontrado = null;
-            Object.values(db).forEach(categoria => {
-                const encontrado = categoria.find(p => p.id === idBuscado);
-                if (encontrado) productoEncontrado = encontrado;
-            });
+            if (db) {
+                Object.values(db).forEach(categoria => {
+                    const encontrado = categoria.find(p => p.id === idBuscado);
+                    if (encontrado) productoEncontrado = encontrado;
+                });
+            }
 
             // 4. Renderizar la información
             if (productoEncontrado) {
                 $("#detalle-contenedor").html(`
-  <div class="col-md-10 col-md-offset-1">
-    <div class="card" style="width:100%; padding:20px; background-color:#1A1A27;">
-      <div class="row">
-        
-        <div class="col-md-6">
-          <img 
-            src="${productoEncontrado.img}" 
-            class="img-responsive"
-            style="border:1px solid #3D3A50; border-radius:6px;"
-          >
-        </div>
-
-        <div class="col-md-6">
-          <h2 class="card-title">${productoEncontrado.nombre}</h2>
-
-          <p class="text-white" style="font-size:1.1em; margin-top:15px;">
-            ${productoEncontrado.descripcion}
-          </p>
-
-          <h3 style="color:#FFFFFF; margin-top:20px;">
-            Precio: <span style="color:#8A2BE2;">$${productoEncontrado.precio}</span>
-          </h3>
-
-          <div style="margin-top:25px;">
-            <button class="btn btn-lg" 
-              style="background-color:#8A2BE2; color:white; border:none;">
-              Agregar al carrito
-            </button>
-
-            <a href="javascript:history.back()"   
-              class="btn btn-lg"
-              style="background-color:#35303a; color:white; margin-left:10px;">
-              Volver
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-`);
+                    <article class="col-md-10 col-md-offset-1">
+                        <div class="card" style="width:100%; padding:20px; background-color:#1A1A27;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="${productoEncontrado.img}" class="img-responsive" style="border:1px solid #3D3A50; border-radius:6px;" alt="${productoEncontrado.nombre}">
+                                </div>
+                                <div class="col-md-6">
+                                    <h2 class="card-title">${productoEncontrado.nombre}</h2>
+                                    <p class="text-white" style="font-size:1.1em; margin-top:15px;">
+                                        ${productoEncontrado.descripcion}
+                                    </p>
+                                    <h3 style="color:#FFFFFF; margin-top:20px;">
+                                        Precio: <span style="color:#8A2BE2;">$${productoEncontrado.precio}</span>
+                                    </h3>
+                                    <div style="margin-top:25px;">
+                                        <button id="btn-agregar" class="btn btn-lg" style="background-color:#8A2BE2; color:white; border:none;">
+                                            Agregar al carrito
+                                        </button>
+                                        <a href="javascript:history.back()" class="btn btn-lg" style="background-color:#35303a; color:white; margin-left:10px;">
+                                            Volver
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `);
             } else {
                 $("#detalle-contenedor").html('<h3 class="text-center text-white">Producto no encontrado</h3>');
             }
+
+            // --- AGREGAR AL CARRITO ---
+            $(document).on('click', '#btn-agregar', function() {
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                
+                // Guardamos el objeto del producto actual en el arreglo
+                carrito.push(productoEncontrado);
+                
+                // Guardamos en LocalStorage
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                
+                // Llamamos a la función global de main.js para actualizar el número visualmente
+                actualizarBadge();
+                
+                alert("¡Producto añadido con éxito! 🔥");
+            });
         });
     </script>
 </body>

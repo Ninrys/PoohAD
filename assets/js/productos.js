@@ -21,5 +21,5 @@ vestidos : [
 ]
 
 }
-//para poder manipular los datos de los bikinis en otras partes del proyecto, los guardamos en el localStorage
+//para poder manipular los datos de los productos en otras partes del proyecto, los guardamos en el localStorage
 localStorage.setItem('tienda_db', JSON.stringify(DB));

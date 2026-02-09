@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div class="hero-div">
+        <img src="assets/img/logo.png" class="hero-logo" alt="Logo" />
+    </div>
+
     <div id="header-placeholder"></div>
 
     <main class="container">
@@ -22,19 +26,20 @@
     <div id="footer-placeholder"></div>
 
     <script src="assets/js/productos.js"></script>
+    
+    <script src="assets/js/main.js"></script>
+
     <script>
         $(function () {
-            $("#header-placeholder").load("header.html");
-            $("#footer-placeholder").load("footer.html");
+            // Usamos la función de main.js para cargar header/footer y actualizar el badge
+            cargarComponentes();
 
-            // 1. Detectar qué categoría quiere ver el usuario
+            // Lógica específica de la página de categoría
             const params = new URLSearchParams(window.location.search);
-            const categoriaSeleccionada = params.get('tipo'); // "bikinis", "vestidos" o "poleras"
+            const categoriaSeleccionada = params.get('tipo'); 
 
-            // 2. Obtener la base de datos
             const db = JSON.parse(localStorage.getItem('tienda_db'));
 
-            // 3. Validar y Mostrar
             if (db && db[categoriaSeleccionada]) {
                 $("#titulo-categoria").text(categoriaSeleccionada);
                 const productos = db[categoriaSeleccionada];
@@ -56,6 +61,7 @@
                 });
             } else {
                 $("#titulo-categoria").text("Categoría no encontrada");
+                $("#contenedor-productos").html('<p class="text-center text-white">Lo sentimos, no pudimos encontrar los productos.</p>');
             }
         });
     </script>

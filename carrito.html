@@ -1,58 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carrito de Compras</title>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito - Pooh After Dark</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
-      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-  <body>
-    <div class="hero-div">
-      <img src="assets/img/logo.png" class="hero-logo" />
-    </div>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
     <div id="header-placeholder"></div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h2>Tu Carrito</h2>
-          <hr />
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="4" class="text-center">El carrito está vacío</td>
-              </tr>
-            </tbody>
-          </table>
-          <a href="index.html" class="btn btn-default">Volver a la tienda</a>
+    <main class="container" style="margin-top: 30px; min-height: 70vh;">
+        <h2 style="color: #8A2BE2;">Tu Carrito de Compras</h2>
+        <hr style="border-color: #3D3A50;">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table" style="color: white; background-color: #1A1A27;">
+                        <thead>
+                            <tr style="color: #8A2BE2;">
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-carrito">
+                            </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="1" class="text-right"><h4><strong>Total:</strong></h4></td>
+                                <td colspan="2"><h4><strong style="color: #8A2BE2;" id="total-compra">$0</strong></h4></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="text-right" style="margin-top: 20px;">
+                    <button id="btn-vaciar" class="btn btn-danger">Vaciar Carrito</button>
+                    <a href="index.html" class="btn btn-default">Seguir Comprando</a>
+                    <button class="btn btn-primary" onclick="alert('¡Gracias por tu compra!')" style="background-color: #8E44AD; color: white; border: none;">Finalizar Compra</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </main>
+
     <div id="footer-placeholder"></div>
+
+    <script src="assets/js/main.js"></script>
     <script>
-      $(function () {
-        $("#header-placeholder").load("header.html");
-        $("#footer-placeholder").load("footer.html")
-      });
+        $(function() {
+            // 1. Cargar componentes globales
+            cargarComponentes();
+
+            // 2. Función para renderizar el carrito
+            function renderizarCarrito() {
+                const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                const $tabla = $("#tabla-carrito");
+                let total = 0;
+
+                $tabla.empty(); // Limpiar tabla
+
+                if (carrito.length === 0) {
+                    $tabla.append('<tr><td colspan="3" class="text-center">El carrito está vacío</td></tr>');
+                } else {
+                    carrito.forEach((producto, index) => {
+                        total += producto.precio;
+                        $tabla.append(`
+                            <tr>
+                                <td>${producto.nombre}</td>
+                                <td>$${producto.precio}</td>
+                                <td>
+                                    <button class="btn btn-xs btn-danger btn-eliminar" data-index="${index}">Eliminar</button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+                $("#total-compra").text(`$${total}`);
+            }
+
+            // 3. Inicializar tabla
+            renderizarCarrito();
+
+            // 4. Evento para eliminar un producto individual
+            $(document).on('click', '.btn-eliminar', function() {
+                const index = $(this).data('index');
+                let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                
+                carrito.splice(index, 1); // Quitar el elemento del arreglo
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                
+                renderizarCarrito(); // Volver a dibujar
+                actualizarBadge();   // Actualizar el número en el navbar
+            });
+
+            // 5. Evento para vaciar todo el carrito
+            $("#btn-vaciar").click(function() {
+                if(confirm("¿Estás seguro de que quieres vaciar el carrito?")) {
+                    localStorage.removeItem('carrito');
+                    renderizarCarrito();
+                    actualizarBadge();
+                }
+            });
+        });
     </script>
-  </body>
+</body>
+</html>

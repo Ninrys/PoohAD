@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>E commercet</title>
+    <title>Pooh After Dark - E-commerce</title>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
@@ -18,49 +18,56 @@
   </head>
   <body>
     <div class="hero-div">
-      <img src="assets/img/logo.png" class="hero-logo" />
+      <img src="assets/img/logo.png" class="hero-logo" alt="Logo" />
     </div>
 
     <div id="header-placeholder"></div>
 
-    <div class="container">
+    <main class="container">
       <div class="row-cartas">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <article class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card text-center">
-            <img class="card-img-top" src="assets/img/placeholder.png" alt="Card image cap" />
+            <img class="card-img-top" src="assets/img/placeholder.png" alt="Bikinis" />
             <div class="card-body">
               <h5 class="card-title">Bikinis</h5>
               <a href="categorias.html?tipo=bikinis" class="btn btn-primary">Ver Todo</a>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <article class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card text-center">
-            <img class="card-img-top" src="" alt="Card image cap" />
+            <img class="card-img-top" src="assets/img/placeholder.png" alt="Vestidos" />
             <div class="card-body">
               <h5 class="card-title">Vestidos</h5>
               <a href="categorias.html?tipo=vestidos" class="btn btn-primary">Ver Todo</a>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <article class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
           <div class="card text-center">
-            <img class="card-img-top" src=" " alt="Card image cap" />
+            <img class="card-img-top" src="assets/img/placeholder.png" alt="Poleras" />
             <div class="card-body">
               <h5 class="card-title">Poleras</h5>
               <a href="categorias.html?tipo=poleras" class="btn btn-primary">Ver Todo</a>
             </div>
           </div>
-        </div>
+        </article>
       </div>
-    </div>
+    </main>
+
     <div id="footer-placeholder"></div>
+
+    <script src="assets/js/productos.js"></script>
+    
+    <script src="assets/js/main.js"></script>
+
     <script>
       $(function () {
-        $("#header-placeholder").load("header.html");
-        $("#footer-placeholder").load("footer.html");
+        // Usamos la función que creamos en main.js
+        // Pasamos "index.html" para que sepa marcar el botón de Inicio como activo
+        cargarComponentes("index.html");
       });
     </script>
   </body>

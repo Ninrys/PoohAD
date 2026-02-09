@@ -176,3 +176,35 @@ width: 35vh;
   color: #8A2BE2;
   font-weight: bold;
 }
+
+/* ===== ESTILO PARA LA TABLA DEL CARRITO ===== */
+.table {
+    background-color: #1A1A27 !important; /* Fondo de tarjeta */
+    border: 1px solid #3D3A50 !important;
+    border-radius: 8px;
+    color: #FFFFFF !important;
+}
+
+.table thead th {
+    border-bottom: 2px solid #8A2BE2 !important; /* Línea morada arriba */
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.table tbody td {
+    border-top: 1px solid #3D3A50 !important;
+    vertical-align: middle !important;
+}
+
+/* Para que las filas no se vean blancas al pasar el mouse */
+.table-hover tbody tr:hover {
+    background-color: #252535 !important;
+}
+
+/* Estilo para el badge en el navbar */
+.badge {
+    background-color: #8A2BE2 !important;
+    color: white !important;
+    font-weight: bold;
+}
