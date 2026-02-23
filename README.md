@@ -1,3 +1,6 @@
+
+El proyecto está "deployed" en GitHub pages: https://ninrys.github.io/PoohAD/index.html?
+
 Pooh After Dark es un e-commerce frontend que permite:
   -Visualizar productos por categoría
   -Ver detalle individual de cada producto
@@ -8,7 +11,7 @@ Pooh After Dark es un e-commerce frontend que permite:
 El proyecto está enfocado en practicar:
 
   -Manipulación del DOM
-  -Uso de localStorage
+  -Uso de localStorage (Para simular una DB)
   -Renderizado dinámico con JavaScript
   
 Tecnologías utilizadas
